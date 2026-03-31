@@ -1,0 +1,19 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id='time'></div>
+  <script src="script.js"></script>
+  <script>
+    function displayTime() {
+      var date = new Date();
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var seconds = date.getSeconds();
+      var timeString = hours + ':' + minutes + ':' + seconds;
+      document.getElementById('time').textContent = timeString;
+    }
+    displayTime();
+    setInterval(displayTime, 1000);
+  </script>
+</body>

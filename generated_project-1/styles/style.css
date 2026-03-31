@@ -1,0 +1,119 @@
+:root {
+  /* Color palette */
+  --primary-color: #4a90e2;       /* Standard button */
+  --operator-color: #ff9500;      /* Operator buttons (+, -, ×, ÷) */
+  --equals-color: #34c759;        /* Equals button */
+  --clear-color: #ff3b30;         /* Clear / backspace */
+  --calc-bg: #ffffff;             /* Calculator container */
+  --page-bg: #f5f5f5;              /* Page background */
+
+  /* Typography */
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-size: 1.2rem;
+  --display-font-size: 2rem;
+
+  /* Sizing & spacing */
+  --spacing: 0.5rem;
+  --button-min-height: 3rem;   /* Minimum button height */
+  --button-radius: 0.25rem;
+}
+
+/* Page background */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: var(--page-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Calculator container */
+.calculator {
+  max-width: 400px;
+  width: 100%;
+  background: var(--calc-bg);
+  border-radius: var(--button-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing);
+  box-sizing: border-box;
+}
+
+/* Display */
+.display {
+  width: 100%;
+  font-size: var(--display-font-size);
+  font-family: var(--font-family);
+  text-align: right;
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  border: 1px solid #ccc;
+  border-radius: var(--button-radius);
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+/* Buttons container */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing);
+}
+
+/* Individual button */
+.btn {
+  min-height: var(--button-min-height);
+  font-size: var(--font-size);
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus {
+  background: #357ab8; /* darker shade of primary */
+  outline: none;
+}
+
+/* Specific button types */
+[data-action="operator"] {
+  background: var(--operator-color);
+}
+[data-action="operator"]:hover,
+[data-action="operator"]:focus {
+  background: #e07b00;
+}
+
+[data-action="equals"] {
+  background: var(--equals-color);
+}
+[data-action="equals"]:hover,
+[data-action="equals"]:focus {
+  background: #28a745;
+}
+
+[data-action="clear"],
+[data-action="backspace"] {
+  background: var(--clear-color);
+}
+[data-action="clear"]:hover,
+[data-action="clear"]:focus,
+[data-action="backspace"]:hover,
+[data-action="backspace"]:focus {
+  background: #d12b20;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .buttons {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .btn {
+    font-size: 1rem;
+    min-height: 2.5rem;
+  }
+}

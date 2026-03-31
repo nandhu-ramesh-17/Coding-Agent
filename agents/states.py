@@ -13,7 +13,7 @@ class Plan(BaseModel):
     files: list[File] = Field(description="A list of files to be created, each with a 'path' and 'purpose'")
 
 class ImplementationTask(BaseModel):
-    filepath: str = Field(description="The path to the file to be modified")
+    file_path: str = Field(description="The path to the file to be modified")
     task_description: str = Field(description="A detailed description of the task to be performed on the file, e.g. 'add user authentication', 'implement data processing logic', etc.")
 
 class TaskPlan(BaseModel):
