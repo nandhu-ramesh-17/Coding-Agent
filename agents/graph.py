@@ -9,7 +9,7 @@ from prompts import *
 
 load_dotenv()
 
-llm = ChatGroq(model="openai/gpt-oss-120b")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 
 def planner_agent(state : dict) -> dict:
     user_prompt = state["user_prompt"]
@@ -25,10 +25,23 @@ def architect_agent(state : dict) -> dict:
     response.plan = plan
     return {"task_plan" : response}
 
+def coder_agent(state : dict) -> dict:
+    steps = state["task_plan"].implementation_steps
+    current_step_idx = 0
+    current_task = steps[current_step_idx]
+    user_prompt = (
+        f"Task : {current_task.task_description}\n"
+    )
+    system_prompt = coder_system_prompt()
+    response = llm.invoke(system_prompt + user_prompt)
+    return {"code_output" : response.content}
+
 graph = StateGraph(dict)
 graph.add_node("planner", planner_agent)
 graph.add_node("architect", architect_agent)
+graph.add_node("coder", coder_agent)
 graph.add_edge("planner","architect")
+graph.add_edge("architect","coder")
 graph.set_entry_point("planner")
 
 agent = graph.compile()
